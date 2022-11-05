@@ -1,5 +1,5 @@
 $DirectoryName="TimeSync"
-$ScriptUri="https://raw.githubusercontent.com/StrajnarFilip/Diploma/master/.gitignore?token=GHSAT0AAAAAABRHGLTQADWZHHAL2EUNGSYOY3GNXZQ"
+$ScriptUri="https://raw.githubusercontent.com/StrajnarFilip/TimeSync/master/time.ps1"
 
 Set-Location C:\
 New-Item -ItemType Directory -Name $DirectoryName
