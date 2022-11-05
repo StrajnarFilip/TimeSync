@@ -1,4 +1,5 @@
 $DirectoryName = "TimeSync"
+$TaskName = "TimeSyncTask"
 $ScriptUri = "https://raw.githubusercontent.com/StrajnarFilip/TimeSync/master/time.ps1"
 
 Set-Location C:\
@@ -14,11 +15,11 @@ $newTaskTrigger = @{
     AtLogOn = $true
 }
 $registerTask = @{
-    TaskName    = 'TimeSyncTask'
+    TaskName    = $TaskName
     Action      = New-ScheduledTaskAction @newTaskAction
     Trigger     = New-ScheduledTaskTrigger @newTaskTrigger
     RunLevel    = 'Highest'
     Description = 'Sync time'
 }
-$NewTask = Register-ScheduledTask @registerTask
-Start-ScheduledTask $NewTask
+Register-ScheduledTask @registerTask
+Start-ScheduledTask $TaskName
