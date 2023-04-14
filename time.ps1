@@ -2,12 +2,13 @@ Start-Transcript -Path "$PSScriptRoot\transcript.txt"
 
 while ($true) {
     try {
-        $rawJson = $(Invoke-WebRequest -Uri "https://worldtimeapi.org/api/timezone/Europe/London" -UseBasicParsing).Content
-        $datetimeString = [System.Text.Json.JsonDocument]::Parse($rawJson).RootElement.GetProperty("datetime").GetString()
-        $accurateDateTime = ([System.DateTime]::Parse($datetimeString))
-        Set-Date -Date $accurateDateTime
-        Add-Content -Value $accurateDateTime -Path "$PSScriptRoot\log.txt"
+        $RawJson = (Invoke-WebRequest "https://clock.zone/_/_offset").Content
+        $Timestamp = [System.Text.Json.JsonDocument]::Parse($RawJson).RootElement.GetProperty("val").GetInt64()
+        $DateTimeFresh = [System.DateTime]::new(1970, 1, 1, 0, 0, 0, 0, [System.DateTimeKind]::Utc);
+        $DateTimeNow = $DateTimeFresh.AddMilliseconds($Timestamp)
+        Set-Date -Date $DateTimeNow.ToLocalTime()
     }
-    catch {}
+    catch {
+    }
     Start-Sleep -Seconds 60
 }
